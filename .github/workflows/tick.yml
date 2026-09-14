@@ -1,0 +1,15 @@
+name: Bot Tick
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+  workflow_dispatch:
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit bot endpoint
+        run: |
+          curl -s -H "Authorization: Bearer $CRON_SECRET" "https://BROKER-URL.vercel.app/api/tick"
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}   
